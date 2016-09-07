@@ -12,13 +12,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- <link rel="stylesheet" href="assets/css/reset.css" /> -->
+		<!-- <link rel="stylesheet" type="assets/text/css" href="css/default.css"> -->
+		<!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
+		<link rel="stylesheet" href="assets/css/audioplayer.css" />
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-
+		<script src="assets/js/audioplayer.js"></script>
+		<script>
+			/*
+				iOS浏览BUG修复
+				by @mathias, @cheeaun and @jdalton
+			*/
+			(function(doc){var addEvent='addEventListener',type='gesturestart',qsa='querySelectorAll',scales=[1,1],meta=qsa in doc?doc[qsa]('meta[name=viewport]'):[];function fix(){meta.content='width=device-width,minimum-scale='+scales[0]+',maximum-scale='+scales[1];doc.removeEventListener(type,fix,true);}if((meta=meta[meta.length-1])&&addEvent in doc){fix();scales=[.25,1.6];doc[addEvent](type,fix,true);}}(document));
+		</script>
 	</head>
 	<body>
 
@@ -32,6 +43,11 @@
 
 		<!-- Wrapper -->
 		<div id="wrapper">
+
+			<div id="wrapper">
+				<audio src="audios/test/Star_GuanZhengjie.mp3" preload="auto" controls></audio>
+				<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+			</div>
 
 			<!-- 这里是一个通过json文件自动填充的段落示例 -->
 			<div id="floor18"></div>
