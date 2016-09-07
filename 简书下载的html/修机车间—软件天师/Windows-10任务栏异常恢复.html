@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 10任务栏异常恢复</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Windows 10任务栏异常恢复</h1>
+        <div class="show-content">
+          <p>电脑爱好者2016-07-12 09:02<br></p><hr><p><i>Windows 10虽然功能强大，但由于其开发与使用并进的模式，因此使用过程当中遭遇各种异常也属常事。就拿任务栏来说，不少用户已经遇到自定义任务栏快捷图标丢失，或系统托盘常用图标异常的情况。因此，掌握必要的任务栏备份和恢复方法非常必要。</i><br></p><h1><b>有备无患 任务栏快捷方式防丢术</b><br></h1><p>为使用方便，大家都定制了自己的个性任务栏，但个性任务栏图标格局有时会因为某种原因被破坏或丢失。通过将已经定制好的Windows 10任务栏快捷图标进行备份，可防止任务栏布局的意外错乱或丢失，万一丢失也可快速恢复。</p><p>首先进行图标备份。按下Win+R组合键启动“运行”对话框，输入如下命令并确认：</p><p>%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar</p><p></p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-fc84856b64268961.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-fc84856b64268961.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p></p><p>这样便可进入存放系统任务栏图标的文件夹。此外，我们也可直接在文件资源管理器窗口的地址栏中输入以上命令并回车，同样可以到达任务栏快捷方式所在的文件夹。</p><p>进入任务栏快捷方式所在的文件夹后，利用压缩软件将所有快捷方式打包压缩备份。然后保存到安全的地方，或上传到自己的网盘或邮箱中备用。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-fa4dfb606f066a2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-fa4dfb606f066a2b.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>接下来备份任务栏快捷方式在注册表中的相关项目。通过注册表有关项目的导出，实现系统快捷图标的项目备份。启动注册表编辑器并定位到“HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband”分支，右键单击Taskband，选择“导出”命令。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-1df068a7408a3adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-1df068a7408a3adf.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>命名导出的注册表文件，保存到与上述备份文件相同的位置，以便于配套使用。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-e0dd427936300459.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-e0dd427936300459.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>当遇到问题需要恢复时，执行与上述类似的操作过程。先定位到快捷方式存放的文件夹，然后将备份的快捷方式解压释放到该目录中。注意不能解压到子目录中，可用从压缩包窗口拖放的方法来直接释放。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-abed17b83016d52d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-abed17b83016d52d.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>然后启动注册表编辑器，打开备份的注册表文件，执行“导入”命令。这样，系统就会按照注册表配置项目和图标实际位置，恢复工具栏上的快捷启动图标了。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-bd83b45c70bf910d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-bd83b45c70bf910d.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>用这种方式备份的图标，除了用在系统任务栏快捷方式意外丢失的情况下使用，还可在重新安装Windows 10之后快速恢复图标之用。这样也可以省去重新安装系统之后设置的麻烦。</p><h1><b>随时召回 系统托盘图标异常恢复</b></h1><p>除了任务栏的用户自定义快捷区外，系统托盘区域也很重要，这里排列着非常重要的系统图标和用户常用的程序图标。如果这个区域出现图标异常，也有办法找回。</p><p>首先可使用常规的普通设置法尝试恢复图标。在任务栏空白处点击右键并选择“属性”，在弹出的属性设置窗口的“任务栏”标签下，选择设置通知区域“自定义”按钮，点击“选择在任务栏上显示哪些图标”。然后通过“通知区域始终显示所有图标”开关，或单独控制每个程序图标的隐现，尝试恢复系统托盘的有关图标。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-9096acb42f49b166.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-9096acb42f49b166.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>如果上述方法不奏效，可使用注册表编辑的方法恢复。运行REGEDIT启动注册表编辑器，定位到“HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify”分支，删除IconStreams和UserStartTime两个值。</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-73db66ad4d7ffcf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-73db66ad4d7ffcf4.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>随后，在任务管理器中找到当前运行的资源管理器进程，右键单击该进程并选择“重新启动”。随后桌面和任务栏会自动刷新，刷新之后系统托盘图标就会重新显示出来。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

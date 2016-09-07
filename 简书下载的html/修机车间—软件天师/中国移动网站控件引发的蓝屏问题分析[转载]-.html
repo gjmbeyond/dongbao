@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国移动网站控件引发的蓝屏问题分析[转载] </title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">中国移动网站控件引发的蓝屏问题分析[转载] </h1>
+        <div class="show-content">
+          <p>&nbsp;<i>首先特别感谢作者微软 MVP 佘华煜.</i></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我接到了我们同事的一个奇怪的蓝屏case，据他回忆，他最近没有安装任何软件和驱动，也没有更改计算机的硬件配置，除了Windows后台进行的自动更新之外，他实在想不起来到底对计算机有什么额外的改变。可是突然，就从前一天23日周三晚上起，他的计算机就开始蓝屏，重启之后，进系统之前就会蓝屏，或者进了系统用不到一会儿也会蓝屏。因此，他怀疑是硬件（如内存）故障导致的，或者是 Windows Update 导致的问题。<br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 照说，例如内存条松动的这种突发硬件故障的确有可能引发蓝屏，但是由于 Windows Update 推送的补丁缺陷导致的蓝屏可实属少见，在排查蓝屏问题时，我们一般应该遵从默认信任微软自身组件的原则。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 据了解，他蓝屏一般有几个随机的错误代码，查询 Debugging Help 后，得到的解释如下：</p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-ba4457024db0e91e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-height="654" data-width="502" data-image-slug="ba4457024db0e91e" data-original-src="http://upload-images.jianshu.io/upload_images/413849-ba4457024db0e91e.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>在以上错误中，前两种出现的频率最高。如果您百度一下以上错误，已经有足够的理由开始拆下内存条，擦拭金手指了。但是我个人认为，这一定不是一个硬件产生的错误。在我看来，这样的错误看似随机，其实应该有一种共性的可能性——系统中存在一个写的很烂的驱动。为什么这么讲呢，我们可以从查到的描述中看见"bad""depletion""nonpaged pool"出现的频率很高；另外值得注意的是，对于0x24 NTFS文件系统的 bug check，在很多时候容易产生磁盘损坏的误导，殊不知，它还有一种可能就是非换页池耗尽，如上表中我加粗了的部分。<br></p><p>对于如此随机的错误，我们往往是无法通过分析栈去找到凶手的。例如，我在这里给出一个栈的示例：</p><p>MEMORY_MANAGEMENT (1a)</p><p># Any other values for parameter 1 must be individually examined.</p><p>Arguments:</p><p>Arg1: 0000000000041287, The subtype of the bugcheck.</p><p>Arg2: 0000000000000030</p><p>Arg3: 0000000000000000</p><p>Arg4: 0000000000000000</p><p>Debugging Details:</p><p>------------------</p><p>BUGCHECK_STR: 0x1a_41287</p><p>DEFAULT_BUCKET_ID: VISTA_DRIVER_FAULT</p><p>PROCESS_NAME: WmiPrvSE.exe</p><p>CURRENT_IRQL: 0</p><p>TRAP_FRAME: fffff88007e6d6e0 -- (.trap 0xfffff88007e6d6e0)</p><p>NOTE: The trap frame does not contain all registers.</p><p>Some register values may be zeroed or incorrect.</p><p>STACK_TEXT:</p><p>fffff880`07e6d578 fffff800`02c62d7e : 00000000`0000001a 00000000`00041287 00000000`00000030 00000000`00000000 : nt!KeBugCheckEx</p><p>fffff880`07e6d580 fffff800`02ccdd6e : 00000000`00000000 00000000`00000030 00000000`00000000 00000000`fffffa80 : nt! ?? ::FNODOBFM::`string'+0x46485</p><p>fffff880`07e6d6e0 fffff800`02dadbc5 : 00000000`000af94a 00000000`00000000 ffffffff`ffffffff 00000000`01464000 : nt!KiPageFault+0x16e</p><p>fffff880`07e6d870 fffff800`02d426b0 : fffffa80`098d5058 fffff6fd`4004c6a8 fffff800`02f055c0 fffff880`07e6db11 : nt!MiResolvePageFileFault+0x1115</p><p>fffff880`07e6d9b0 fffff800`02cdea07 : 00000000`00000000 00000000`01440004 00000000`0240f3c4 fffff800`00000000 : nt! ?? ::FNODOBFM::`string'+0x399d4</p><p>fffff880`07e6dac0 fffff800`02ccdd6e : 00000000`00000001 00000000`01440004 00000000`023ae701 00000000`00000460 : nt!MmAccessFault+0x1e47</p><p>fffff880`07e6dc20 00000000`76b87222 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : nt!KiPageFault+0x16e</p><p>00000000`0240f394 00000000`00000000 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : 0x76b87222</p><p>可以看见，除了ntkrnlmp.exe里面的函数，最前面发生的0x76b87222根本无法解析出来。dds 命令也是不能够解析出具体名称的。</p><p>那么，究竟该怎么样才能找到问题的元凶呢？<br></p><p>其实，将随机的蓝屏错误通过启用特殊池来转化为明显的错误是比较好的选择。对于特殊池（special pool）的概念，我并不是第一次介绍了，关于这个神奇的特殊内存区域的调试方法，请参见我早些时候的文章<a href="http://www.cnblogs.com/mvperic/archive/2010/07/25/1784823.html" target="_blank">《启用特殊池解读 0x000000c5 蓝屏》</a>，或者其英文版<a href="http://www.cnblogs.com/mvperic/archive/2011/01/28/1947017.html" target="_blank">《Enable "Special Pool" to Interpret 0x000000c5 Blue Screen》</a>。</p><p>从安全模式启动系统，启动 verifier，配置启用 special pool. 当然，安全模式下，可能引发问题的驱动也许并未加载，因此，我们最好选择"从一个列表选择驱动程序名"，然后继续选择"将目前没有加载的驱动程序添加到列表中…"，在弹出的选择文件对话框中，浏览 %systemroot%\system32\derivers , 然后增加"版权"和"产品名称"两列文件属性，并按照它们排序。选择所有不是微软的程序驱动，或者选择没有数字签名/版权和产品信息不完整的看似不专业的驱动，添加进来选中应用特殊池即可。</p><p><br></p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-23f61394f0c39913.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-height="493" data-width="651" data-image-slug="23f61394f0c39913" data-original-src="http://upload-images.jianshu.io/upload_images/413849-23f61394f0c39913.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>这里需要说明一下，其实特殊池的设置保存在注册表之中，具体是在内存管理器的分支里：<br></p><p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management</p><p>它靠 DWord 值 VerifyDriverLevel 和 String 值 VerifyDrivers 控制。有兴趣大家可以去窥探一下 J</p><p>启用特殊池之后，我们就重启计算机，正常进入系统尝试 repro 这个问题。没一会儿，还没登录果然就又蓝了。这回直接进入安全模式，获得内存转储文件进行分析：</p><p>首先我们可以看见，特殊池生效了，而且成功进行了内存池分配：</p><p>4: kd&gt; !verifier</p><p>Verify Level 1 ... enabled options are:</p><p>Special pool</p><p>Summary of All Verifier Statistics</p><p>RaiseIrqls 0x0</p><p>AcquireSpinLocks 0x0</p><p>Synch Executions 0x0</p><p>Trims 0x0</p><p>Pool Allocations Attempted 0x2</p><p>Pool Allocations Succeeded 0x2</p><p>Pool Allocations Succeeded SpecialPool 0x2</p><p>Pool Allocations With NO TAG 0x0</p><p>Pool Allocations Failed 0x0</p><p>Resource Allocations Failed Deliberately 0x0</p><p>Current paged pool allocations 0x0 for 00000000 bytes</p><p>Peak paged pool allocations 0x0 for 00000000 bytes</p><p>Current nonpaged pool allocations 0x0 for 00000000 bytes</p><p>Peak nonpaged pool allocations 0x0 for 00000000 bytes</p><p>然后，我们可以直接看到问题驱动究竟是谁了：</p><p>DRIVER_VERIFIER_DETECTED_VIOLATION (c4)</p><p>A device driver attempting to corrupt the system has been caught. This is</p><p>because the driver was specified in the registry as being suspect (by the</p><p>administrator) and the kernel has enabled substantial checking of this driver.</p><p>If the driver attempts to corrupt the system, bugchecks 0xC4, 0xC1 and 0xA will</p><p>be among the most commonly seen crashes.</p><p>Arguments:</p><p>Arg1: 00000000000000b2, MmMapLockedPages called on an MDL having incorrect flags.</p><p>For example, calling MmMapLockedPages for an MDL</p><p>that is already mapped to a system address is incorrect.</p><p>Arg2: fffffa800a4e71b0, MDL address.</p><p>Arg3: 0000000000000005, MDL flags.</p><p>Arg4: 0000000000000005, Incorrect MDL flags.</p><p>Debugging Details:</p><p>------------------</p><p>BUGCHECK_STR: 0xc4_b2</p><p>DEFAULT_BUCKET_ID: VISTA_DRIVER_FAULT</p><p>PROCESS_NAME: System</p><p>CURRENT_IRQL: 0</p><p>LAST_CONTROL_TRANSFER: from fffff8000311f3dc to fffff80002c95c40</p><p>STACK_TEXT:</p><p>fffff880`033697e8 fffff800`0311f3dc : 00000000`000000c4 00000000`000000b2 fffffa80`0a4e71b0 00000000`00000005 : nt!KeBugCheckEx</p><p>fffff880`033697f0 fffff800`0311ffb3 : fffff880`05926f60 fffff880`05926f60 fffffa80`069ce700 fffff800`0312e09a : nt!VerifierBugCheckIfAppropriate+0x3c</p><p>fffff880`03369830 fffff800`031327bb : fffffa80`0a4e71b0 fffffa80`09b69000 fffffa80`0a4e71b0 fffff880`05926f60 : nt!ViMmMapLockedPagesSanityChecks+0xa3</p><p>fffff880`03369870 fffff880`06220009 : fffffa80`0a4e72c0 ffffffff`8000069c fffffa80`0a4e72c0 00000000`00000000 : nt!VerifierMmMapLockedPages+0x1b</p><p>fffff880`033698b0 fffff880`0624c93a : fffff880`03369970 fffff880`05926f60 fffffa80`00000032 00000000`0000001c : </p><h4>PassGuard_x64!distorm_version+0x6809</h4><p><br></p><p>fffff880`033698f0 fffff880`03369970 : fffff880`05926f60 fffffa80`00000032 00000000`0000001c fffffa80`06768f30 : </p><h4>PassGuard_x64!distorm_version+0x3313a</h4><p><br></p><p>fffff880`033698f8 fffff880`05926f5f : fffffa80`00000032 00000000`0000001c fffffa80`06768f30 00000000`00000200 : 0xfffff880`03369970</p><p>fffff880`03369900 fffffa80`00000032 : 00000000`0000001c fffffa80`06768f30 00000000`00000200 00000000`00000000 : usbhub!UsbhSyncSendCommand+0x327</p><p>fffff880`03369908 00000000`0000001c : fffffa80`06768f30 00000000`00000200 00000000`00000000 fffff880`06232040 : 0xfffffa80`00000032</p><p>fffff880`03369910 fffffa80`06768f30 : 00000000`00000200 00000000`00000000 fffff880`06232040 00000000`001e001c : 0x1c</p><p>fffff880`03369918 00000000`00000200 : 00000000`00000000 fffff880`06232040 00000000`001e001c fffff880`062563f8 : 0xfffffa80`06768f30</p><p>fffff880`03369920 00000000`00000000 : fffff880`06232040 00000000`001e001c fffff880`062563f8 00000000`00220020 : 0x200</p><p>STACK_COMMAND: kb</p><p>FOLLOWUP_IP:</p><p>PassGuard_x64!distorm_version+6809</p><p>fffff880`06220009 4889442428 mov qword ptr [rsp+28h],rax</p><p>SYMBOL_STACK_INDEX: 4</p><p>SYMBOL_NAME: PassGuard_x64!distorm_version+6809</p><p>FOLLOWUP_NAME: MachineOwner</p><p>MODULE_NAME: PassGuard_x64</p><p>IMAGE_NAME: PassGuard_x64.sys</p><p>DEBUG_FLR_IMAGE_TIMESTAMP: 4e2fb9f4</p><p>FAILURE_BUCKET_ID: X64_0xc4_b2_VRF_PassGuard_x64!distorm_version+6809</p><p>BUCKET_ID: X64_0xc4_b2_VRF_PassGuard_x64!distorm_version+6809</p><p>Followup: MachineOwner</p><p>---------</p><p>4: kd&gt; lmvm PassGuard_x64</p><p>start end module name</p><p>fffff880`06218000 fffff880`06261000 PassGuard_x64 (export symbols) PassGuard_x64.sys</p><p>Loaded symbol image file: PassGuard_x64.sys</p><p>Image path: \??\C:\windows\system32\drivers\PassGuard_x64.sys</p><h4>Image name: PassGuard_x64.sys</h4><p>Timestamp: Wed Jul 27 15:10:44 2011 (4E2FB9F4)</p><p>CheckSum: 0004A5F0</p><p>ImageSize: 00049000</p><p>File version: 1.0.0.6</p><p>Product version: 1.0.0.6</p><p>File flags: 0 (Mask 17)</p><p>File OS: 4 Unknown Win32</p><p>File type: 1.0 App</p><p>File date: 00000000.00000000</p><p>Translations: 0804.04b0</p><h4>ProductName: SysEnter Application</h4><p>InternalName: SysEnter</p><p>OriginalFilename: SysEnter.exe</p><p>ProductVersion: 1, 0, 0, 6</p><p>FileVersion: 1, 0, 0, 6</p><p>FileDescription: SysEnter Application</p><p>LegalCopyright: Copyright (C) 2011</p><p>好了，知道了这个叫 PassGuard_x64.sys 的驱动是罪魁祸首之后，那我们就该移除它的启动加载了。直接在安全模式打开注册表编辑器，删除HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services 下面的 PassGuard 整个键，当然，你还需要找到 ControlSet001 / 002 下面的同样的键删除。这里，我顺便把这个 PassGuard 键的内容展示出来：</p><p>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\PassGuard]</p><p>"Type"=dword:00000001</p><p>"Start"=dword:00000002</p><p>"ErrorControl"=dword:00000001</p><p>"ImagePath"=hex(2):5c,00,3f,00,3f,00,5c,00,43,00,3a,00,5c,00,77,00,69,00,6e,00,\</p><p>64,00,6f,00,77,00,73,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,\</p><p>00,5c,00,64,00,72,00,69,00,76,00,65,00,72,00,73,00,5c,00,50,00,61,00,73,00,\</p><p>73,00,47,00,75,00,61,00,72,00,64,00,5f,00,78,00,36,00,34,00,2e,00,73,00,79,\</p><p>00,73,00,00,00</p><p>"DisplayName"="PassGuard"</p><p>"WOW64"=dword:00000001</p><p>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\PassGuard\Enum]</p><p>"0"="Root\\LEGACY_PASSGUARD\\0000"</p><p>"Count"=dword:00000001</p><p>"NextInstance"=dword:00000001</p><p>删除这个键，如果没有其他的多重问题，那么系统就能正常运行了。在重启进入正常模式之前，记得删除 verifier 中的特殊池配置。</p><p>为了进一步删除该驱动所关联的程序或者其他文件（如果有的话），我请这位同事仔细回忆这是什么。于是，我叫他回忆一下任何可能的情况，例如IE插件的变化、某些程序里面的捆绑、恶意程序等等。结果，他想起周三下午有去中国移动的 10086.cn 充值话费，安装了一个安全控件。</p><p>我们打开IE加载项管理器，选择所有加载项，果然发现了这一个：</p><p><br></p><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-a0c36de29599ff13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-height="526" data-width="586" data-image-slug="a0c36de29599ff13" data-original-src="http://upload-images.jianshu.io/upload_images/413849-a0c36de29599ff13.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><p>还好不是恶意软件，而且可以通过下面的 remove 按钮删除关联的控件文件。好了，不多说了，看看中国移动为64位操作系统写的驱动有多烂你就明白了。<br></p><p>从这个案例中，我想我们看到的不仅仅是特殊池的使用方法和排错思路，而且还应看到现在很多信息服务公司所面临的一个问题，自己的产品的驱动外包出去，而且承包开发驱动的公司没有足够的驱动撰写经验和规范，或者没有经过测试就投入使用，受损的不仅是客户，更是这个服务公司自身的品牌。这样的例子太多了，延伸起来不仅有 badly written driver, 还有 badly written software, badly written website… 铁道部12306网站说多了就没意思了，说句实话，现在中国联通在营业厅推行的银行卡缴费机我真是不敢用。想想要把银行卡插进联通外包商开发的机器中去，还要输入银行卡密码我就觉得胆战心惊...</p><p><i>佘华煜 (Eric Sheh)，微软 MVP，致力于为微软 Windows 和 Office 用户及 IT 专业人士提供更好的帮助与支持。</i><br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

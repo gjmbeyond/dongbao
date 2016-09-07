@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT之家学院：防隐私泄露，Win10一招彻底擦除硬盘已删文件</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">IT之家学院：防隐私泄露，Win10一招彻底擦除硬盘已删文件</h1>
+        <div class="show-content">
+          <p>2015-12-31 15:25:13来源：<a href="http://www.ithome.com/html/win10/198182.htm" target="_blank">IT之家</a>作者：<b>凌空</b>责编：<b>凌空</b></p><p><b><a href="http://www.ithome.com/html/win10/198182.htm" target="_blank">http://www.ithome.com/html/win10/198182.htm</a></b></p><hr><p>当我们从硬盘中删除文件后，Windows系统只是简单的将文件标记为已删除，但实际上文件仍然存在，使用一些工具，比如软媒魔方中的数据恢复工具，很容易就能够将数据恢复出来，直到硬盘中存储该文件的位置被其他数据所覆盖后才能保证文件不被恢复。</p><p>如果你删除的文件涉及个人隐私，担心数据被人恢复的话，那该怎么办呢？方法很简单，请看下文。<br></p><p>这项功能在Windows XP、<a href="http://www.win7china.com/" target="_blank">Win7</a>、<a href="http://win8.ithome.com/" target="_blank">Win8.1</a>、<a href="http://win10.ithome.com/" target="_blank">Win10</a>中都存在，系统自带了一个名为cipher的命令行工具，其用途是使用EFS加密文件系统对文件进行加密。不过这个工具还有一个附加功能，可以用来对硬盘上的剩余空间进行擦写，从而安全删除剩余空间中包含的已删除文件。该工具使用方法非常简单。</p><hr><h1><b>擦除硬盘所有剩余空间：</b><br></h1><h4><b>1、在开始菜单或任务栏搜索框中输入CMD，在搜索结果中找到命令提示符，右键单击，选择以管理员身份运行。<br></b></h4><h4><b><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-2f25cfbf4d1251c4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-2f25cfbf4d1251c4.jpg?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div></b>2、在命令提示符中输入下面的命令，回车运行：</h4><blockquote><p>cipher /w:C</p></blockquote><p>最后的字母“C”代表分区盘符，根据需要修改即可。之后只需要耐心等待，如下图所示：</p><h4 class="image-package"><div class="image-package"><img src="http://upload-images.jianshu.io/upload_images/413849-14d9ac2f04f191ae.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/413849-14d9ac2f04f191ae.jpg?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div></div><br>为擦除数据，该工具会依次执行三个任务：首先，用0x00覆盖剩余空间，然后用数据0xFF覆盖剩余空间，最后再使用随机数据进行擦写。完成整个过程需要一些时间，取决于硬盘剩余空间大小。</h4>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

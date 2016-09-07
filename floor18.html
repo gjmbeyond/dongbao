@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<!--
+	Epilogue by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Dongbao 十八楼C座</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<div class="inner">
+				<h1>Dongbao</h1>
+				<p>A Comfortable Home of <a href="index.html">Kwoks</a></p>
+			</div>
+		</header>
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- 这里是一个通过json文件自动填充的段落示例 -->
+			<div id="floor18"></div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<!-- <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li> -->
+					<li><a href="mailto:365150309@qq.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<!-- <p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p> -->
+				<p>@Author: Kwoks</p>
+			</footer>
+
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		var jsonFile = $.getJSON("jsons/floor18.json", {}, function(ret){
+			var html_content = ""
+			var file_list = ret["files"]
+			console.log(file_list)
+			for (var i = file_list.length - 1; i >= 0; i--) {
+				var one_item = file_list[i]
+				// html_content += ("<div>title:"+one_item["title"]+"</div>")
+				// html_content += ('<div>link:<a href="'+one_item["link"]+'">'+one_item["title"]+'</a></div>')
+				// html_content += ("<div>content:"+one_item["content"]+"</div>")
+				// html_content += ("<hr></hr>")
+				html_content += ('<div>link:<a href="htmls/floor18/'+one_item+'">'+one_item+'</a></div>')
+			}
+			$("#floor18").html(html_content)
+		}) 
+	</script>
+
+</html>

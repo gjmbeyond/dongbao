@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT之家学院：跟我一起学Win10 UWP应用开发（开篇）</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">IT之家学院：跟我一起学Win10 UWP应用开发（开篇）</h1>
+        <div class="show-content">
+          <blockquote><p>转载自 http://www.ithome.com/html/win10/208588.htm<br></p></blockquote><p>2016-2-26 17:12:20来源：IT之家作者：豆豆责编：豆豆</p><p>想学Win10 UWP开发，不知从何下手？那么本系列文章可能正是你所需要的。从今天开始IT之家将陆续推出Windows10开发新手入门系列专题，供对Win10开发感兴趣的小伙伴们参考学习。<br></p><p>作为系列专题的开篇，本文并不会包含技术性方面的内容，主要是向大家征集意见和建议，并对我们即将使用的Win10开发平台作一个简单的介绍。</p><div class="image-package"><img data-original-src="http://upload-images.jianshu.io/upload_images/413849-ecd6cb7e54c55543.jpg?imageMogr2/auto-orient/strip" src="http://upload-images.jianshu.io/upload_images/413849-ecd6cb7e54c55543.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IT之家学院：跟我一起学Win10 UWP应用开发（开篇）"><br><div class="image-caption"></div></div><p></p><h1>IT之家学院：跟我一起学Win10 UWP应用开发（开篇）</h1><h4>Win10通用平台</h4><p>我们通常所说的UWP，即Universal Windows Platform，意为通用Windows平台，针对该平台开发的应用可同时运行在多种不同类型的Win10设备中，包括手机、平板、PC（笔记本和台式机），甚至是Xbox One以及Hololens中，还有各种物联网设备。</p><p>这里的通用实质是源代码的“通用”，开发者还是需要针对不同平台设备编译不同的版本。其实通用应用的概念在WP8.1时就已诞生，不过在Win10中更进一步，逻辑代码和UI代码都可以得到最大程度共用。</p><h4>开发框架和语言</h4><p>过去很长一段时间以来，甚至是现在，在Windows桌面平台较流行的开发方式便是使用微软提供的MFC框架以及WinForm/WPF框架，前者是对Windows API的C++封装，后者则是对Windows API的.NET封装，使用C#语言开发。到了Win8中微软引入了全新的应用程序架构，即WinRT，并延续到了Win10（包括Win10 Mobile）中，专门用来开发Windows应用商店应用，它支持使用C++、C#、VB.NET，甚至是JavaScript语言进行开发。</p><p>多年来微软一直在不断推广和改进自家的C#语言，C#是一门完全面向对象的编程语言，入门上手较为容易，也是微软比较推荐的编程语言。在本系列专题中，我们即使用C#编程语言完成一系列示例。</p><p>除了C#语言，我们还需要学习XAML语言，对于有WPF开发经验的朋友会非常熟悉。XAML主要用于设计应用界面，类似于呈现网页的HTML语言。前面我们提到Win10通用应用针对不同设备都可以使用同一套UI，那么这就要求我们设计的界面能够适应各种不同尺寸的屏幕，因此还需要掌握一些有关响应式界面设计的技巧。</p><h4>准备工作</h4><p>我们将在后续的系列文章中逐步渗透以上技术，如果你已经打算跟着我一起动手，那么现在你需要准备以下软硬件工具：</p><p>• 一台运行Win10（建议升级到TH2）的电脑，点此下载Win10 TH2正式版系统；</p><p>• 安装Visual Studio 2015（建议安装最新Update1版本）以及Win10 SDK，点此下载所需工具；</p><p>• 一部运行Windows 10 Mobile（10586系统）的手机；</p><p>注：如果你没有Win10 Mobile手机也可以通过模拟器进行调试，不过这需要你的电脑CPU支持虚拟化技术。因为运行Win10 Mobile手机模拟器所需的Hyper-V虚拟机依赖于CPU的虚拟化技术。</p><p>在下一篇文章中我们将创建一个最简单的应用，并对Win10 UWP应用的整个结构进行分析，熟悉Visual Studio 2015开发环境。</p><p>最后，由于豆豆并非专业出身，因此本系列专题定位为入门性质，目前还在摸索中，豆豆将和大家一同学习。如果文章出现技术性错误，也恳请您指出，豆豆将虚心学习和接受。对于学习过程中遇到的任何问题以及想要分享的内容，也欢迎入驻软媒IT之家IT圈参与讨论。如果你有什么意见和建议也请在评论或IT圈中发帖提出。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
