@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dongbao blog editor</title>
+
+	<!-- <link rel="stylesheet" href="toolbarconfigurator/lib/codemirror/neo.css"> -->
+	<link rel="stylesheet" href="../../assets/css/main.css" />
+
+	<script src="../../assets/js/jquery.min.js"></script>
+	<script src="../../assets/js/skel.min.js"></script>
+	<script src="../../assets/js/util.js"></script>
+	<script src="../../assets/js/main.js"></script>
+	<script src="../../assets/js/ckeditor.js"></script>
+</head>
+<body id="main">
+	
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<form id="editor_form" action="#" method="post">
+			<input id="title" type="text" name="title" placeholder="请输入题目" />
+			<input id="content" type="text" name="content" style="display: none" />
+			<textarea name="editor1" id="editor1" rows="10" cols="80">
+			</textarea>
+			<script>
+				// Replace the <textarea id="editor1"> with a CKEditor
+				// instance, using default configuration.
+				CKEDITOR.replace( 'editor1' );
+			</script>
+		</form>
+	</div>
+
+	<div>
+		<button id="save">保存</button>
+		<p id="saveErr" style="color: red; font-weight: 100"></p>
+	</div>
+</body>
+<script>
+	$('#save').click(function(){
+		var title = $('#title').val().trim()
+		if(title == null || title == ''){
+			$('#saveErr').text("题目不能为空")
+		}else{
+			var content = CKEDITOR.instances.editor1.getData()
+			console.log(content)
+			$.ajax({
+				url: "../../php/save_blog.php",
+				method: "post",
+				data:{
+					"title": title,
+					"content": content
+				},
+				success: function(ret){
+					console.log(ret)
+					location.href="../../index.html"
+				}
+			})
+		}
+	})
+</script>
+
+</html>

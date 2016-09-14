@@ -38,5 +38,5 @@
 	mysql_free_result($result);
 
 	// 关闭连接
-	mysql_close($conn);  
+	mysql_close($conn);
 ?>

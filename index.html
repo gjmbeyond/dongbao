@@ -47,6 +47,7 @@
 
 			<!-- Items -->
 			<section class="main items">
+				<!-- <form action="php/floor18.php" id="floor18form" methos="post"></form> -->
 				<article class="item">
 					<header>
 						<a href="#"><img src="images/pic01.jpg" alt="" /></a>
@@ -59,12 +60,12 @@
 				</article>
 				<article class="item">
 					<header>
-						<a href="floor18.html"><img src="images/pic02.jpg" alt="" /></a>
+						<a href="floor18.html" class="floor18"><img src="images/pic02.jpg" alt="" /></a>
 						<h3>十八楼C座</h3>
 					</header>
 					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
 					<ul class="actions">
-						<li><a href="floor18.html" class="button">More</a></li>
+						<li><a href="floor18.html" class="button floor18">More</a></li>
 					</ul>
 				</article>
 				<article class="item">
@@ -111,7 +112,7 @@
 			-->
 
 			<!-- 这里是一个通过json文件自动填充的段落示例 -->
-			<div id="floor18"></div>
+			<!-- <div id="floor18"></div> -->
 
 			<!-- Footer -->
 			<footer id="footer">
@@ -131,19 +132,23 @@
 	</body>
 
 	<script type="text/javascript">
-		var jsonFile = $.getJSON("jsons/contents.json", {}, function(ret){
-			var html_content = ""
-			var floor18_items = ret["18floor"]
-			console.log(floor18_items)
-			for (var i = floor18_items.length - 1; i >= 0; i--) {
-				var one_item = floor18_items[i]
-				html_content += ("<div>title:"+one_item["title"]+"</div>")
-				html_content += ('<div>link:<a href="'+one_item["link"]+'">'+one_item["title"]+'</a></div>')
-				html_content += ("<div>content:"+one_item["content"]+"</div>")
-				html_content += ("<hr></hr>")
-			}
-			$("#floor18").html(html_content)
-		}) 
+		// var jsonFile = $.getJSON("jsons/contents.json", {}, function(ret){
+		// 	var html_content = ""
+		// 	var floor18_items = ret["18floor"]
+		// 	console.log(floor18_items)
+		// 	for (var i = floor18_items.length - 1; i >= 0; i--) {
+		// 		var one_item = floor18_items[i]
+		// 		html_content += ("<div>title:"+one_item["title"]+"</div>")
+		// 		html_content += ('<div>link:<a href="'+one_item["link"]+'">'+one_item["title"]+'</a></div>')
+		// 		html_content += ("<div>content:"+one_item["content"]+"</div>")
+		// 		html_content += ("<hr></hr>")
+		// 	}
+		// 	$("#floor18").html(html_content)
+		// }) 
+
+		// $('.floor18').click(function(){
+		// 	$('#floor18form').submit();
+		// })
 	</script>
 
 </html>
