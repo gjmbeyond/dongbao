@@ -1,0 +1,94 @@
+<?php
+	session_start();
+	if($_POST['login']!=null || $_POST['login']!=''){
+		$_SESSION['login'] = $_POST['login'];
+	}
+	if(isset($_SESSION['login'])){
+		//ok,you have login
+	} else {
+		//you haven't login yet, go to index and log in
+		echo '<script language="javascript">location.href="../../index.html"</script>';
+	}
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dongbao blog editor</title>
+
+	<!-- <link rel="stylesheet" href="toolbarconfigurator/lib/codemirror/neo.css"> -->
+	<link rel="stylesheet" href="../../assets/css/main.css" />
+
+	<script src="../../assets/js/jquery.min.js"></script>
+	<script src="../../assets/js/skel.min.js"></script>
+	<script src="../../assets/js/util.js"></script>
+	<script src="../../assets/js/main.js"></script>
+	<script src="../../assets/js/ckeditor.js"></script>
+</head>
+<body id="main">
+	
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<form id="editor_form" action="#" method="post">
+			<input id="title" type="text" name="title" placeholder="请输入题目" />
+			<input id="content" type="text" name="content" style="display: none" />
+			<input id="tag" type="text" name="tag" style="display: none" />
+			请选择标签<select>
+				<option value ="floor18">十八楼C座</option>
+				<option value ="sunnyday">在晴朗的一天出发</option>
+				<option value="music">叱咤音乐圈</option>
+				<option value="education">葛民教育</option>
+			</select>
+		</form>
+		<textarea name="editor1" id="editor1" rows="10" cols="80">
+		</textarea>
+		<script>
+			// Replace the <textarea id="editor1"> with a CKEditor
+			// instance, using default configuration.
+			CKEDITOR.replace( 'editor1' );
+		</script>
+	</div>
+
+	<div>
+		<button id="save">保存</button>
+		<p id="saveErr" style="color: red; font-weight: 100"></p>
+	</div>
+</body>
+<script>
+	$('#save').click(function(){
+		var title = $('#title').val().trim()
+		var tag = $('select').val()
+		var author = "<?php echo $_SESSION['login']; ?>"
+		if(title == null || title == ''){
+			$('#saveErr').text("题目不能为空")
+		} else if(tag == null || tag == ''){
+			$('#saveErr').text("标签不能为空")
+		} else if(author == null || author == ''){
+			location.href="../../index.html"
+		}else{
+			var content = CKEDITOR.instances.editor1.getData()
+			console.log(content)
+			$.ajax({
+				url: "../../php/save_blog.php",
+				method: "post",
+				data:{
+					"title": title,
+					"content": content,
+					"tag": tag,
+					"author": author
+				},
+				success: function(ret){
+					console.log(ret)
+					location.href="../../index.html"
+				}
+			})
+		}
+	})
+
+	CKEDITOR.instances.editor1.on('save', function(evt){
+		console.log("fire save event");
+		return ;
+	});
+</script>
+
+</html>

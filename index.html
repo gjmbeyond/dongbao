@@ -1,9 +1,7 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE HTML>
-<!--
-	Epilogue by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html>
 	<head>
 		<title>Dongbao</title>
@@ -11,13 +9,13 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
 
 		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/skel.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+		<script src="../../assets/js/jquery.min.js"></script>
+		<script src="../../assets/js/skel.min.js"></script>
+		<script src="../../assets/js/util.js"></script>
+		<script src="../../assets/js/main.js"></script>
 
 	</head>
 	<body>
@@ -26,7 +24,7 @@
 		<header id="header" class="alt">
 			<div class="inner">
 				<h1>Dongbao</h1>
-				<p>A Comfortable Home of <a href="index.html">Kwoks</a></p>
+				<p>A Comfortable Home of <a href="../../index.html">Kwoks</a></p>
 			</div>
 		</header>
 
@@ -49,44 +47,56 @@
 			<section class="main items">
 				<!-- <form action="php/floor18.php" id="floor18form" methos="post"></form> -->
 				<article class="item">
-					<header>
-						<a href="#"><img src="images/pic01.jpg" alt="" /></a>
-						<h3>在晴朗的一天出发</h3>
-					</header>
-					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
-					<ul class="actions">
-						<li><a href="#" class="button">More</a></li>
-					</ul>
+					<form id="gotosunnyday" action="../../sunnyday.html" method="post">
+						<input type="text" name="login" value="<?php echo $_SESSION['login']; ?>" style="display: none;"/>
+						<header>
+							<a class="sunnyday"><img src="images/pic01.jpg" alt="" /></a>
+							<h3>在晴朗的一天出发</h3>
+						</header>
+						<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+						<ul class="actions">
+							<li><a class="button sunnyday">More</a></li>
+						</ul>
+					</form>
 				</article>
 				<article class="item">
-					<header>
-						<a href="floor18.html" class="floor18"><img src="images/pic02.jpg" alt="" /></a>
-						<h3>十八楼C座</h3>
-					</header>
-					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
-					<ul class="actions">
-						<li><a href="floor18.html" class="button floor18">More</a></li>
-					</ul>
+					<form id="gotofloor18" action="../../floor18.html" method="post">
+						<input type="text" name="login" value="<?php echo $_SESSION['login']; ?>" style="display: none;"/>
+						<header>
+							<a class="floor18"><img src="images/pic02.jpg" alt="" /></a>
+							<h3>十八楼C座</h3>
+						</header>
+						<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+						<ul class="actions">
+							<li><a class="button floor18">More</a></li>
+						</ul>
+					</form>
 				</article>
 				<article class="item">
-					<header>
-						<a href="#"><img src="images/pic03.jpg" alt="" /></a>
-						<h3>叱咤音乐圈</h3>
-					</header>
-					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
-					<ul class="actions">
-						<li><a href="#" class="button">More</a></li>
-					</ul>
+					<form id="gotomusic" action="../../music.html" method="post">
+						<input type="text" name="login" value="<?php echo $_SESSION['login']; ?>" style="display: none;"/>
+						<header>
+							<a class="music"><img src="images/pic03.jpg" alt="" /></a>
+							<h3>叱咤音乐圈</h3>
+						</header>
+						<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+						<ul class="actions">
+							<li><a class="button music">More</a></li>
+						</ul>
+					</form>
 				</article>
 				<article class="item">
-					<header>
-						<a href="#"><img src="images/pic04.jpg" alt="" /></a>
-						<h3>葛民教育</h3>
-					</header>
-					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
-					<ul class="actions">
-						<li><a href="#" class="button">More</a></li>
-					</ul>
+					<form id="gotoeducation" action="../../education.html" method="post">
+						<input type="text" name="login" value="<?php echo $_SESSION['login']; ?>" style="display: none;"/>
+						<header>
+							<a class="education"><img src="images/pic04.jpg" alt="" /></a>
+							<h3>葛民教育</h3>
+						</header>
+						<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+						<ul class="actions">
+							<li><a class="button education">More</a></li>
+						</ul>
+					</form>
 				</article>
 			</section>
 
@@ -119,12 +129,29 @@
 				<ul class="icons">
 					<!-- <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li> -->
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li> -->
+					<li><a href="../../login.html" class="icon fa-linkedin"><span class="label">Login</span></a></li>
 					<li><a href="mailto:365150309@qq.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
+					<li><button id="logout">退出登录</button></li>
+					<?php 
+						if(isset($_SESSION['login'])){
+							echo '<li><button id="create">写一篇</button></li>';
+						} else {
+							echo '';
+						}
+					 ?>
+					<form id="create_blog_form" action="../../blog_create.html" method="post">
+						<input type="text" name="login" style="display:none;" value="<?php echo $_SESSION['login']; ?>" />
+					</form>
 				</ul>
-				<!-- <p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p> -->
 				<p>@Author: Kwoks</p>
+				<p><?php 
+					if(isset($_SESSION['login'])){
+						echo 'welcome '.$_SESSION['login'];
+					} else {
+						echo 'hi, tourist!';
+					}
+				 ?></p>
 			</footer>
 
 		</div>
@@ -132,23 +159,32 @@
 	</body>
 
 	<script type="text/javascript">
-		// var jsonFile = $.getJSON("jsons/contents.json", {}, function(ret){
-		// 	var html_content = ""
-		// 	var floor18_items = ret["18floor"]
-		// 	console.log(floor18_items)
-		// 	for (var i = floor18_items.length - 1; i >= 0; i--) {
-		// 		var one_item = floor18_items[i]
-		// 		html_content += ("<div>title:"+one_item["title"]+"</div>")
-		// 		html_content += ('<div>link:<a href="'+one_item["link"]+'">'+one_item["title"]+'</a></div>')
-		// 		html_content += ("<div>content:"+one_item["content"]+"</div>")
-		// 		html_content += ("<hr></hr>")
-		// 	}
-		// 	$("#floor18").html(html_content)
-		// }) 
+		$('.floor18').click(function(){
+			$("#gotofloor18").submit()
+		})
 
-		// $('.floor18').click(function(){
-		// 	$('#floor18form').submit();
-		// })
+		$('.sunnyday').click(function(){
+			$("#gotosunnyday").submit()
+		})
+
+		$('.music').click(function(){
+			$("#gotomusic").submit()
+		})
+
+		$('.education').click(function(){
+			$("#gotoeducation").submit()
+		})
+
+		$('#logout').click(function(){
+			<?php 
+				session_destroy();
+			?>
+			location.href='../../index.html'
+		})
+
+		$('#create').click(function(){
+			$('#create_blog_form').submit()
+		})
 	</script>
 
 </html>

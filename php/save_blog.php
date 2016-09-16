@@ -33,10 +33,10 @@
 	// 执行sql查询
 	$result=mysql_db_query($mysql_database, $strsql, $conn) or die("查询博文是否已经存在失败");
 
-	if(count($result) > 0){
-		$strsql = "UPDATE `test`.`blog` SET html='".htmlspecialchars(trimall($_POST['content']))."' where id=".$_POST['id'].";";
+	if(count($result) > 0 && ($_POST['id'] != null && $_POST['id'] != '')){
+		$strsql = "UPDATE `test`.`blog` SET html='".htmlspecialchars(trimall($_POST['content']))."', tag='".htmlspecialchars($_POST['tag'])."' where id=".$_POST['id'].";";
 	} else {
-		$strsql = "INSERT INTO `test`.`blog` (`title`, `address`, `date`, `author`, `tag`, `html`, `like`) VALUES ('".$_POST['title']."', 'htmls/1.html', '".$timeStr."', 'gjj', 'floor18', '".htmlspecialchars(trimall($_POST['content']))."', NULL);";
+		$strsql = "INSERT INTO `test`.`blog` (`title`, `address`, `date`, `author`, `tag`, `html`, `like`) VALUES ('".$_POST['title']."', 'htmls/1.html', '".$timeStr."', '".htmlspecialchars($_POST['author'])."', '".htmlspecialchars($_POST['tag'])."', '".htmlspecialchars(trimall($_POST['content']))."', 0);";
 	}
 
 	echo $strsql;

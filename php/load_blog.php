@@ -1,4 +1,6 @@
 <?php 
+
+	session_start();
 	
 	$ret = '';
 
@@ -26,7 +28,52 @@
 	// 获取查询结果
 	$row=mysql_fetch_row($result);
 
+	$ret = $ret.'<!DOCTYPE HTML>
+				<html>
+					<head>
+						<title>'.$row[1].'</title>
+
+						<meta charset="utf-8" />
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+						<link rel="stylesheet" href="../../assets/css/audioplayer.css" />
+
+						<!-- Scripts -->
+						<script src="../../assets/js/jquery.min.js"></script>
+						<script src="../../assets/js/audioplayer.js"></script></head>
+					<body>';
+
 	$ret = $ret.htmlspecialchars_decode($row[6]);
+
+	$ret = $ret.'<div id="wrapper_audio">
+				<audio id="audio_player" preload="auto" controls></audio>
+			</div><a href="../../index.html">返回首页</a>
+<div id="label"></div>
+<script>
+$(document).ready(function(e) {	
+	var counter = 0;
+	if (window.history && window.history.pushState) {
+		$(window).on("popstate", function () {
+			window.history.pushState("forward", null, "#");
+			window.history.forward(1);
+			$("#label").html("第" + (++counter) + "次单击后退按钮。");
+		});
+	}
+	window.history.pushState("forward", null, "#"); //在IE中必须得有这两行
+	window.history.forward(1);
+});
+</script>
+    </body><script type="text/javascript">
+		$(document).ready(function(){
+			var raw_source = $("p:contains(\'Asource\')").text()
+			var source = raw_source.split("=")[1]
+			console.log(source)
+			document.getElementById("audio_player").src=source
+			$(function(){
+				$("audio").audioPlayer()
+			})
+		})
+	</script></html>';
 
 	echo $ret;
 

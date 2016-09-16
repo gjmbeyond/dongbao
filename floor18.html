@@ -1,9 +1,10 @@
+<?php
+	session_start();
+	if($_POST['login']!=null || $_POST['login']!=''){
+		$_SESSION['login'] = $_POST['login'];
+	}
+?>
 <!DOCTYPE HTML>
-<!--
-	Epilogue by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html>
 	<head>
 		<title>Dongbao 十八楼C座</title>
@@ -44,13 +45,8 @@
 		<!-- Wrapper -->
 		<div id="wrapper">
 
-			<!-- <div id="wrapper">
-				<audio src="audios/test/Star_GuanZhengjie.mp3" preload="auto" controls></audio>
-				<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
-			</div> -->
-
 			<!-- 这里是一个通过json文件自动填充的段落示例 -->
-			<div id="floor18"></div>
+			<div id="blog_list"></div>
 
 			<!-- Footer -->
 			<footer id="footer">
@@ -61,8 +57,14 @@
 					<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li> -->
 					<li><a href="mailto:365150309@qq.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
 				</ul>
-				<!-- <p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p> -->
 				<p>@Author: Kwoks</p>
+				<p><?php 
+					if(isset($_SESSION['login'])){
+						echo 'welcome '.$_SESSION['login'];
+					} else {
+						echo 'hi, tourist!';
+					}
+				 ?></p>
 			</footer>
 
 		</div>
@@ -70,28 +72,17 @@
 	</body>
 
 	<script type="text/javascript">
-		// var jsonFile = $.getJSON("jsons/floor18.json", {}, function(ret){
-		// 	var html_content = ""
-		// 	var file_list = ret["files"]
-		// 	console.log(file_list)
-		// 	for (var i = file_list.length - 1; i >= 0; i--) {
-		// 		var one_item = file_list[i]
-		// 		// html_content += ("<div>title:"+one_item["title"]+"</div>")
-		// 		// html_content += ('<div>link:<a href="'+one_item["link"]+'">'+one_item["title"]+'</a></div>')
-		// 		// html_content += ("<div>content:"+one_item["content"]+"</div>")
-		// 		// html_content += ("<hr></hr>")
-		// 		html_content += ('<div>link:<a href="htmls/floor18/'+one_item+'">'+one_item+'</a></div>')
-		// 	}
-		// 	$("#floor18").html(html_content)
-		// }) 
 
 		$.ajax({
-			url:'php/floor18.php',
-			data:{},
+			url:'../../php/load_blog_list.php',
+			method:"post",
+			data:{
+				"tag":"floor18"
+			},
 			success:function(ret){
 				// console.log('success')
 				// console.log(ret)
-				$('#floor18').html(ret)
+				$('#blog_list').html(ret)
 			}
 		})
 	</script>

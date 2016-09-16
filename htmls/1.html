@@ -33,12 +33,13 @@
 			</div>
 		</header>
 
+		<div>Asource=../../audios/test/Star_GuanZhengjie.mp3</div>
+
 		<!-- Wrapper -->
 		<div id="wrapper">
 
-			<div id="wrapper">
-				<audio src="../../audios/test/Star_GuanZhengjie.mp3" preload="auto" controls></audio>
-				<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+			<div id="wrapper_audio">
+				<audio id="audio_player" preload="auto" controls></audio>
 			</div>
 
 
@@ -47,7 +48,15 @@
 	</body>
 
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			var raw_source = $('div:contains("Asource")').text()
+			var source = raw_source.split('=')[1]
+			// console.log(source)
+			document.getElementById("audio_player").src=source
+			$(function(){
+				$("audio").audioPlayer()
+			})
+		})
 	</script>
 
 </html>

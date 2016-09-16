@@ -1,3 +1,15 @@
+<?php
+	session_start();
+	if($_POST['login']!=null || $_POST['login']!=''){
+		$_SESSION['login'] = $_POST['login'];
+	}
+	if(isset($_SESSION['login'])){
+		//ok,you have login
+	} else {
+		//you haven't login yet, go to index and log in
+		echo '<script language="javascript">location.href="../../index.html"</script>';
+	}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,29 +37,47 @@
 					include('php/get_blog_title.php');
 				 ?>"/>
 			<input id="content" type="text" name="content" style="display: none" />
-			<textarea name="editor1" id="editor1" rows="10" cols="80">
-				<?php 
-					include("php/edit_blog.php");
-				 ?>
-			</textarea>
-			<script>
-				// Replace the <textarea id="editor1"> with a CKEditor
-				// instance, using default configuration.
-				CKEDITOR.replace( 'editor1' );
-			</script>
+			<input id="tag" type="text" name="tag" style="display: none" />
+			请选择标签<select>
+				<option value ="floor18">十八楼C座</option>
+				<option value ="sunnyday">在晴朗的一天出发</option>
+				<option value="music">叱咤音乐圈</option>
+				<option value="education">葛民教育</option>
+			</select>
 		</form>
+		<textarea name="editor1" id="editor1" rows="10" cols="80">
+			<?php 
+				include("php/edit_blog.php");
+			 ?>
+		</textarea>
+		<script>
+			// Replace the <textarea id="editor1"> with a CKEditor
+			// instance, using default configuration.
+			CKEDITOR.replace( 'editor1' );
+		</script>
 	</div>
 
 	<div>
 		<button id="save">保存</button>
 		<p id="saveErr" style="color: red; font-weight: 100"></p>
 	</div>
+
+	<div>
+		<a href="../../index.html">返回首页</a>
+		<div id="label"></div>
+	</div>
 </body>
 <script>
 	$('#save').click(function(){
 		var title = $('#title').val().trim()
+		var tag = $('select').val()
+		var author = "<?php echo $_SESSION['login']; ?>"
 		if(title == null || title == ''){
 			$('#saveErr').text("题目不能为空")
+		} else if(tag == null || tag == ''){
+			$('#saveErr').text("标签不能为空")
+		} else if(author == null || author == ''){
+			location.href="../../index.html"
 		}else{
 			var content = CKEDITOR.instances.editor1.getData()
 			console.log(content)
@@ -57,7 +87,9 @@
 				data:{
 					"title": title,
 					"content": content,
-					"id": $('#id').val()
+					"id": $('#id').val(),
+					"tag": tag,
+					"author": author
 				},
 				success: function(ret){
 					console.log(ret)
@@ -66,6 +98,19 @@
 			})
 		}
 	})
+
+	$(document).ready(function(e) {	
+		var counter = 0;
+		if (window.history && window.history.pushState) {
+			$(window).on("popstate", function () {
+				window.history.pushState("forward", null, "#");
+				window.history.forward(1);
+				$("#label").html("第" + (++counter) + "次单击后退按钮。");
+			});
+		}
+		window.history.pushState("forward", null, "#"); //在IE中必须得有这两行
+		window.history.forward(1);
+	});
 </script>
 
 </html>

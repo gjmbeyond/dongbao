@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	// echo $_POST["username"];
 	$mysql_server_name='localhost:3306'; //数据库服务器名称
 	$mysql_username='root'; // 连接数据库用户名
@@ -22,14 +23,15 @@
 	$row=mysql_fetch_row($result);
 
 	if($_POST["password"] == $row[2]){
+		$_SESSION['login'] = $row[1];
 		echo '<script language="javascript">';
 		// echo 'document.location="../login_success.html"';
-		echo 'location.href="../login_success.html"';
+		echo 'location.href="../../index.html"';
 		echo '</script>';
 	} else {
 		echo '<script language="javascript">';
 		// echo 'document.location="../login_fail.html"';
-		echo 'location.href="../login_fail.html"';
+		echo 'location.href="../../login_fail.html"';
 		echo '</script>';
 	}
 
